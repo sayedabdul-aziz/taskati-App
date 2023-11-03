@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:taskati/core/colors.dart';
 import 'package:taskati/core/model/task_model.dart';
 import 'package:taskati/core/styles.dart';
+import 'package:taskati/core/widgets/custom_button.dart';
 import 'package:taskati/feature/home/home_view.dart';
 
 class AddTaskView extends StatefulWidget {
@@ -108,38 +109,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () async {
-                        final datePicked = await showDatePicker(
-                          currentDate: DateTime.now(),
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2023),
-                          lastDate: DateTime(2050),
-                          builder: (context, child) {
-                            return Theme(
-                              data: ThemeData(
-                                colorScheme: ColorScheme.light(
-                                  primary: AppColors
-                                      .primaryColor, // header background color
-                                  onPrimary: Colors.white, // header text color
-                                  onSurface:
-                                      AppColors.primaryColor, // body text color
-                                ),
-                                textButtonTheme: TextButtonThemeData(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: AppColors
-                                        .primaryColor, // button text color
-                                  ),
-                                ),
-                              ),
-                              child: child!,
-                            );
-                          },
-                        );
-                        if (datePicked != null) {
-                          setState(() {
-                            _date = datePicked;
-                          });
-                        }
+                        await getDatePicker();
                       },
                       icon: Icon(
                         Icons.calendar_month,
@@ -173,43 +143,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                       readOnly: true,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
-                            onPressed: () async {
-                              final datePicked = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: ThemeData(
-                                      colorScheme: ColorScheme.light(
-                                        primary: AppColors
-                                            .primaryColor, // header background color
-                                        onPrimary:
-                                            Colors.black, // header text color
-                                        onSurface: AppColors
-                                            .primaryColor, // body text color
-                                      ),
-                                      textButtonTheme: TextButtonThemeData(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: AppColors
-                                              .primaryColor, // button text color
-                                        ),
-                                      ),
-                                    ),
-                                    child: child!,
-                                  );
-                                },
-                              );
-
-                              if (datePicked != null) {
-                                setState(() {
-                                  _startTime = datePicked.format(context);
-                                  int plus15Min = datePicked.minute + 15;
-                                  _endTime = datePicked
-                                      .replacing(minute: plus15Min)
-                                      .format(context);
-                                });
-                              }
-                            },
+                            onPressed: () async {},
                             icon: Icon(
                               Icons.watch_later_outlined,
                               color: AppColors.primaryColor,
@@ -228,41 +162,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                       readOnly: true,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
-                            onPressed: () async {
-                              final timePicker = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.fromDateTime(
-                                    DateTime.now()
-                                        .add(const Duration(minutes: 15))),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: ThemeData(
-                                      colorScheme: ColorScheme.light(
-                                        primary: AppColors
-                                            .primaryColor, // header background color
-                                        onPrimary:
-                                            Colors.black, // header text color
-                                        onSurface: AppColors
-                                            .primaryColor, // body text color
-                                      ),
-                                      textButtonTheme: TextButtonThemeData(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: AppColors
-                                              .primaryColor, // button text color
-                                        ),
-                                      ),
-                                    ),
-                                    child: child!,
-                                  );
-                                },
-                              );
-
-                              if (timePicker != null) {
-                                setState(() {
-                                  _endTime = timePicker.format(context);
-                                });
-                              }
-                            },
+                            onPressed: () async {},
                             icon: Icon(
                               Icons.watch_later_outlined,
                               color: AppColors.primaryColor,
@@ -280,99 +180,39 @@ class _AddTaskViewState extends State<AddTaskView> {
                   // ---------- Choose a Color ----------------
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedColor = 0;
-                          });
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: AppColors.primaryColor,
-                          radius: 20,
-                          child: (_selectedColor == 0)
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        ),
-                      ),
+                      ColorItem(0, AppColors.primaryColor),
                       const SizedBox(
                         width: 5,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedColor = 1;
-                          });
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: AppColors.orangeColor,
-                          radius: 20,
-                          child: (_selectedColor == 1)
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        ),
-                      ),
+                      ColorItem(1, AppColors.orangeColor),
                       const SizedBox(
                         width: 5,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedColor = 2;
-                          });
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: AppColors.redColor,
-                          radius: 20,
-                          child: (_selectedColor == 2)
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        ),
-                      )
+                      ColorItem(2, AppColors.redColor)
                     ],
                   ),
                   const Spacer(),
-                  GestureDetector(
+
+                  CustomButton(
+                    text: 'Create Task',
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        await box.add(Task(
-                            title: titleCon.text,
-                            note: noteCon.text,
-                            date: _date.toIso8601String(),
-                            startTime: _startTime,
-                            endTime: _endTime,
-                            color: _selectedColor,
-                            isComplete: false));
-                        print(_date.toIso8601String());
+                        await box.put(
+                            '${titleCon.text}-${_date.toIso8601String()}',
+                            Task(
+                                id: '${titleCon.text} ${_date.toIso8601String()}',
+                                title: titleCon.text,
+                                note: noteCon.text,
+                                date: _date.toIso8601String(),
+                                startTime: _startTime,
+                                endTime: _endTime,
+                                color: _selectedColor,
+                                isComplete: false));
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const HomeView(),
                         ));
                       }
                     },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 100,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: const Text(
-                        'Create Task',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
                   )
                 ],
               )
@@ -381,5 +221,120 @@ class _AddTaskViewState extends State<AddTaskView> {
         ),
       ),
     );
+  }
+
+  Widget ColorItem(int index, Color color) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedColor = index;
+        });
+      },
+      child: CircleAvatar(
+        backgroundColor: color,
+        radius: 20,
+        child: (_selectedColor == index)
+            ? const Icon(
+                Icons.check,
+                color: Colors.white,
+              )
+            : null,
+      ),
+    );
+  }
+
+  getDatePicker() async {
+    final datePicked = await showDatePicker(
+      currentDate: DateTime.now(),
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2050),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryColor, // header background color
+              onPrimary: Colors.white, // header text color
+              onSurface: AppColors.primaryColor, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.primaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (datePicked != null) {
+      setState(() {
+        _date = datePicked;
+      });
+    }
+  }
+
+  showStartTimePicker() async {
+    final datePicked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryColor, // header background color
+              onPrimary: Colors.black, // header text color
+              onSurface: AppColors.primaryColor, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.primaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (datePicked != null) {
+      setState(() {
+        _startTime = datePicked.format(context);
+        int plus15Min = datePicked.minute + 15;
+        _endTime = datePicked.replacing(minute: plus15Min).format(context);
+      });
+    }
+  }
+
+  showEndTimePicker() async {
+    final timePicker = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(
+          DateTime.now().add(const Duration(minutes: 15))),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryColor, // header background color
+              onPrimary: Colors.black, // header text color
+              onSurface: AppColors.primaryColor, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.primaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (timePicker != null) {
+      setState(() {
+        _endTime = timePicker.format(context);
+      });
+    }
   }
 }
