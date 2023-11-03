@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati/core/colors.dart';
+import 'package:taskati/core/model/task_model.dart';
 import 'package:taskati/core/styles.dart';
 import 'package:taskati/feature/home/home_view.dart';
 
@@ -24,6 +26,14 @@ class _AddTaskViewState extends State<AddTaskView> {
       .toString();
 
   int _selectedColor = 0;
+
+  late Box<Task> box;
+
+  @override
+  void initState() {
+    super.initState();
+    box = Hive.box<Task>('task');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -331,8 +341,17 @@ class _AddTaskViewState extends State<AddTaskView> {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (_formKey.currentState!.validate()) {
+                        await box.add(Task(
+                            title: titleCon.text,
+                            note: noteCon.text,
+                            date: _date.toIso8601String(),
+                            startTime: _startTime,
+                            endTime: _endTime,
+                            color: _selectedColor,
+                            isComplete: false));
+                        print(_date.toIso8601String());
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const HomeView(),
                         ));
