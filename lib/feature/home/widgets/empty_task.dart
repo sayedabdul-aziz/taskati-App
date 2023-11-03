@@ -15,7 +15,10 @@ class EmptyTaskWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text('Tasks not found, add task')
+          Text(
+            'Tasks not found, add task',
+            style: Theme.of(context).textTheme.displayMedium,
+          )
         ],
       ),
     );

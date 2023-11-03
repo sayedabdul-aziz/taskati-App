@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:taskati/core/styles.dart';
+import 'package:taskati/core/storage/local_storage.dart';
+import 'package:taskati/core/utils/styles.dart';
 import 'package:taskati/feature/home/home_view.dart';
+import 'package:taskati/feature/upload/upload_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,11 +16,17 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 4), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const HomeView(),
-      ));
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        AppLocal.getData(AppLocal.IS_UPLOAD).then((value) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                (value ?? false) ? const HomeView() : const UploadView(),
+          ));
+        });
+      },
+    );
   }
 
   @override
@@ -34,7 +42,8 @@ class _SplashViewState extends State<SplashView> {
             ),
             Text(
               'Taskati',
-              style: getTitleStyle(fontSize: 22),
+              style: getTitleStyle(
+                  fontSize: 22, color: Theme.of(context).primaryColor),
             ),
             const SizedBox(
               height: 10,

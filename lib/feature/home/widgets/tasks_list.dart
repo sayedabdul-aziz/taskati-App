@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:taskati/core/colors.dart';
 import 'package:taskati/core/model/task_model.dart';
-import 'package:taskati/core/styles.dart';
+import 'package:taskati/core/utils/colors.dart';
+import 'package:taskati/core/utils/styles.dart';
 import 'package:taskati/feature/home/widgets/task_item.dart';
 
 class TaskListWidget extends StatefulWidget {

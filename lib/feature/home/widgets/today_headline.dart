@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:taskati/core/styles.dart';
+import 'package:taskati/core/utils/styles.dart';
 import 'package:taskati/core/widgets/custom_button.dart';
 import 'package:taskati/feature/add_task/add_task_view.dart';
 
@@ -16,11 +16,11 @@ class TodayHeadlineWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(DateFormat.MMMMEEEEd().format(DateTime.now()),
-              style: getTitleStyle()),
+              style: getTitleStyle(color: Theme.of(context).primaryColor)),
           //
           Text(
             'Today',
-            style: getTitleStyle(),
+            style: getTitleStyle(color: Theme.of(context).primaryColor),
           ),
         ],
       ),

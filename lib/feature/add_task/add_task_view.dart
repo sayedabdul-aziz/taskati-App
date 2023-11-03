@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:taskati/core/colors.dart';
 import 'package:taskati/core/model/task_model.dart';
-import 'package:taskati/core/styles.dart';
+import 'package:taskati/core/utils/colors.dart';
+import 'package:taskati/core/utils/styles.dart';
 import 'package:taskati/core/widgets/custom_button.dart';
 import 'package:taskati/feature/home/home_view.dart';
 
@@ -59,10 +59,11 @@ class _AddTaskViewState extends State<AddTaskView> {
               // ---------- title ----------------
               Text(
                 'Title',
-                style: getSubTitleStyle(),
+                style: getSubTitleStyle(color: Theme.of(context).primaryColor),
               ),
               TextFormField(
                 controller: titleCon,
+                style: getSubTitleStyle(color: Theme.of(context).primaryColor),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Title mustn\'t be empty';
@@ -80,10 +81,11 @@ class _AddTaskViewState extends State<AddTaskView> {
               // ---------- note ----------------
               Text(
                 'Note',
-                style: getSubTitleStyle(),
+                style: getSubTitleStyle(color: Theme.of(context).primaryColor),
               ),
               TextFormField(
                 controller: noteCon,
+                style: getSubTitleStyle(color: Theme.of(context).primaryColor),
                 maxLines: 5,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -102,11 +104,13 @@ class _AddTaskViewState extends State<AddTaskView> {
               // ---------- Date ----------------
               Text(
                 'Date',
-                style: getSubTitleStyle(),
+                style: getSubTitleStyle(color: Theme.of(context).primaryColor),
               ),
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
+                  hintStyle:
+                      getSubTitleStyle(color: Theme.of(context).primaryColor),
                   suffixIcon: IconButton(
                       onPressed: () async {
                         await getDatePicker();
@@ -126,12 +130,14 @@ class _AddTaskViewState extends State<AddTaskView> {
                   Expanded(
                       child: Text(
                     'Start Time',
-                    style: getSubTitleStyle(),
+                    style:
+                        getSubTitleStyle(color: Theme.of(context).primaryColor),
                   )),
                   Expanded(
                       child: Text(
                     'End Time',
-                    style: getSubTitleStyle(),
+                    style:
+                        getSubTitleStyle(color: Theme.of(context).primaryColor),
                   )),
                 ],
               ),
@@ -142,8 +148,12 @@ class _AddTaskViewState extends State<AddTaskView> {
                     child: TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(
+                        hintStyle: getSubTitleStyle(
+                            color: Theme.of(context).primaryColor),
                         suffixIcon: IconButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              await showStartTimePicker();
+                            },
                             icon: Icon(
                               Icons.watch_later_outlined,
                               color: AppColors.primaryColor,
@@ -161,8 +171,12 @@ class _AddTaskViewState extends State<AddTaskView> {
                     child: TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(
+                        hintStyle: getSubTitleStyle(
+                            color: Theme.of(context).primaryColor),
                         suffixIcon: IconButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              await showEndTimePicker();
+                            },
                             icon: Icon(
                               Icons.watch_later_outlined,
                               color: AppColors.primaryColor,
@@ -253,10 +267,15 @@ class _AddTaskViewState extends State<AddTaskView> {
       builder: (context, child) {
         return Theme(
           data: ThemeData(
+            dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            datePickerTheme: DatePickerThemeData(
+                headerForegroundColor: Colors.white,
+                yearForegroundColor:
+                    MaterialStatePropertyAll(Theme.of(context).primaryColor)),
             colorScheme: ColorScheme.light(
               primary: AppColors.primaryColor, // header background color
-              onPrimary: Colors.white, // header text color
-              onSurface: AppColors.primaryColor, // body text color
+              onPrimary: Theme.of(context).primaryColor, // header text color
+              onSurface: Theme.of(context).primaryColor, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
@@ -282,10 +301,17 @@ class _AddTaskViewState extends State<AddTaskView> {
       builder: (context, child) {
         return Theme(
           data: ThemeData(
+            timePickerTheme: TimePickerThemeData(
+                helpTextStyle: TextStyle(color: AppColors.primaryColor),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor),
             colorScheme: ColorScheme.light(
+              background: Theme.of(context).scaffoldBackgroundColor,
               primary: AppColors.primaryColor, // header background color
-              onPrimary: Colors.black, // header text color
-              onSurface: AppColors.primaryColor, // body text color
+              secondary: Theme.of(context).primaryColor,
+              onSecondary: Theme.of(context).primaryColor,
+              onPrimary: Theme.of(context).primaryColor, // header text color
+              onSurface: Theme.of(context).primaryColor, // body text color
+              surface: Theme.of(context).primaryColor, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
@@ -315,10 +341,17 @@ class _AddTaskViewState extends State<AddTaskView> {
       builder: (context, child) {
         return Theme(
           data: ThemeData(
+            timePickerTheme: TimePickerThemeData(
+                helpTextStyle: TextStyle(color: AppColors.primaryColor),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor),
             colorScheme: ColorScheme.light(
+              background: Theme.of(context).scaffoldBackgroundColor,
               primary: AppColors.primaryColor, // header background color
-              onPrimary: Colors.black, // header text color
-              onSurface: AppColors.primaryColor, // body text color
+              secondary: Theme.of(context).primaryColor,
+              onSecondary: Theme.of(context).primaryColor,
+              onPrimary: Theme.of(context).primaryColor, // header text color
+              onSurface: Theme.of(context).primaryColor, // body text color
+              surface: Theme.of(context).primaryColor, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(

@@ -1,8 +1,8 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:taskati/core/colors.dart';
 import 'package:taskati/core/model/task_model.dart';
+import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/feature/home/widgets/empty_task.dart';
 import 'package:taskati/feature/home/widgets/home_header.dart';
 import 'package:taskati/feature/home/widgets/tasks_list.dart';
@@ -39,6 +39,12 @@ class _HomeViewState extends State<HomeView> {
                   initialSelectedDate: _selectedValue,
                   selectionColor: AppColors.primaryColor,
                   selectedTextColor: Colors.white,
+                  dateTextStyle: const TextStyle()
+                      .copyWith(color: Theme.of(context).primaryColor),
+                  monthTextStyle: const TextStyle()
+                      .copyWith(color: Theme.of(context).primaryColor),
+                  dayTextStyle: const TextStyle()
+                      .copyWith(color: Theme.of(context).primaryColor),
                   onDateChange: (date) {
                     setState(() {
                       _selectedValue = date;
