@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:taskati/core/storage/local_storage.dart';
 import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/styles.dart';
+import 'package:taskati/feature/home/home_view.dart';
 import 'package:taskati/feature/profile/widgets/show_dialogs.dart';
 
 String name = '';
@@ -34,6 +35,13 @@ class _ProfileViewState extends State<ProfileView> {
     bool isDark = modeBox.get('darkMode') ?? false;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ));
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         //  ---- mode ---------
         actions: [
           IconButton(
