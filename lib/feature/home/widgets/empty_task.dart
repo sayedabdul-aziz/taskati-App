@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskati/core/utils/styles.dart';
 
 class EmptyTaskWidget extends StatelessWidget {
   const EmptyTaskWidget({
@@ -16,8 +17,9 @@ class EmptyTaskWidget extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'Tasks not found, add task',
-            style: Theme.of(context).textTheme.displayMedium,
+            'You do not have any tasks yet!\nAdd new tasks to make your days productive.',
+            style: getSmallTextStyle(),
+            textAlign: TextAlign.center,
           )
         ],
       ),

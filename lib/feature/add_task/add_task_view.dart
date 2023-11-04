@@ -61,6 +61,9 @@ class _AddTaskViewState extends State<AddTaskView> {
                 'Title',
                 style: getSubTitleStyle(color: Theme.of(context).primaryColor),
               ),
+              const SizedBox(
+                height: 3,
+              ),
               TextFormField(
                 controller: titleCon,
                 style: getSubTitleStyle(color: Theme.of(context).primaryColor),
@@ -75,13 +78,16 @@ class _AddTaskViewState extends State<AddTaskView> {
                 ),
               ),
               const SizedBox(
-                height: 8,
+                height: 10,
               ),
 
               // ---------- note ----------------
               Text(
                 'Note',
                 style: getSubTitleStyle(color: Theme.of(context).primaryColor),
+              ),
+              const SizedBox(
+                height: 3,
               ),
               TextFormField(
                 controller: noteCon,
@@ -98,13 +104,16 @@ class _AddTaskViewState extends State<AddTaskView> {
                 ),
               ),
               const SizedBox(
-                height: 8,
+                height: 10,
               ),
 
               // ---------- Date ----------------
               Text(
                 'Date',
                 style: getSubTitleStyle(color: Theme.of(context).primaryColor),
+              ),
+              const SizedBox(
+                height: 3,
               ),
               TextFormField(
                 readOnly: true,
@@ -140,6 +149,9 @@ class _AddTaskViewState extends State<AddTaskView> {
                         getSubTitleStyle(color: Theme.of(context).primaryColor),
                   )),
                 ],
+              ),
+              const SizedBox(
+                height: 3,
               ),
               Row(
                 children: [
