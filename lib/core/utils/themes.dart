@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/styles.dart';
 
-final lightTheme = ThemeData(
+final ThemeData lightTheme = ThemeData(
   //colors
   scaffoldBackgroundColor: Colors.white,
   primaryColor: Colors.black,
@@ -58,8 +58,11 @@ final lightTheme = ThemeData(
 //----------------------------dark mode-----------------
 final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.darkBg,
+
   primaryColor: Colors.white,
+
   fontFamily: GoogleFonts.poppins().fontFamily,
+
   appBarTheme: AppBarTheme(
       titleTextStyle: getHeadlineStyle(),
       iconTheme: IconThemeData(color: AppColors.primaryColor),
@@ -82,6 +85,7 @@ final ThemeData darkTheme = ThemeData(
 
   //   backgroundColor: AppColors.darkBg,
   // ),
+
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: AppColors.primaryColor, // button text color
